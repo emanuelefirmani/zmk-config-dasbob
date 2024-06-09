@@ -1,0 +1,139 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+
+/ {
+    behaviors {
+        hm: homerow_mods {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOMEROW_MODS";
+            bindings = <&kp>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <0>;
+            flavor = "tap-preferred";
+        };
+    };
+
+    macros {
+        m_user: m_user {
+            label = "username";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            bindings
+            = <&kp E &kp M &kp A &kp N &kp U &kp E &kp L &kp E>
+            , <&kp F &kp I &kp R &kp M &kp A &kp N &kp I>
+            ;
+        };
+        m_mail: m_mail {
+            label = "email";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            bindings
+            = <&kp E &kp M &kp A &kp N &kp U &kp E &kp L &kp E>
+            , <&kp F &kp I &kp R &kp M &kp A &kp N &kp I>
+            , <&kp AT &kp K &kp P &kp M &kp G &kp DOT &kp C &kp O &kp M>
+            ;
+        };
+        m_sign: m_sign {
+            label = "signature";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            bindings
+            = <&kp LS(T) &kp H &kp A &kp N &kp K &kp S &kp ENTER>
+            , <&kp LS(C) &kp I &kp A &kp O &kp ENTER>
+            , <&kp LS(E) &kp M &kp A &kp N &kp U &kp E &kp L &kp E>
+            ;
+        };
+
+    };
+
+        keymap {
+                compatible = "zmk,keymap";
+
+                default_layer {
+                        label = "QWERTY";
+// -----------------------------------------------------------------------------------------
+// | |  ;  |  ,  |  .  |  P  |  Y  |            |  F  |  G   |  C  |  R  |  L  | |
+// | |  A  |  O  |  E  |  U  |  I  |            |  D  |  H   |  T  |  N  |  S  | |
+// | |  '  |  Q  |  J  |  K  |  X  |            |  B  |  M   |  W  |  V  |  Z  | |
+//             | ESC | Enter | Tab |            | ENT | RSE  | ALT |
+                        bindings = <
+   &trans &kp SEMI   &kp COMMA  &kp DOT     &kp P               &kp Y           &kp F           &kp G           &kp C       &kp R      &kp L      &trans
+   &trans &mt LGUI A &mt LALT O &mt LSHFT E &mt LCTRL U         &kp I           &kp D           &mt RCTRL H     &mt RSHFT T &mt RALT N &mt RGUI S &trans
+   &trans &kp APOS   &kp Q      &kp J       &kp K               &kp X           &kp B           &kp M           &kp W       &kp V      &kp Z      &trans
+                                &kp ESC     &lt NUM ENTER       &lt FUN TAB     &lt BRAC BSPC   &lt CURS SPACE  &lt ACC DEL
+                        >;
+                };
+
+                numbers_layer {
+                        label = "NUMBERS";
+// -----------------------------------------------------------------------------------------
+// | |  !  |  @  |  $  |  ?  |  &  |            |  -  |  7   |  8  |  9  |  %  | |
+// | |  =  |  /  |  \  |  *  |  _  |            |  +  |  4   |  5  |  6  |  0  | |
+// | |  |  |  ^  |  ~  |  #  |  "  |            |     |  1   |  2  |  3  |     | |
+                        bindings = <
+   &trans &kp EXCL        &kp AT         &kp DOLLAR     &kp QMARK       &kp AMPS        &kp MINUS  &kp N7        &kp N8        &kp N9      &kp PRCNT    &trans
+   &trans &mt LGUI EQUAL  &mt LALT FSLH  &mt LSHFT BSLH &mt LCTRL STAR  &kp UNDER       &kp PLUS   &mt RCTRL N4  &mt RSHFT N5  &mt RALT N6 &mt RGUI N0  &trans
+   &trans &kp PIPE        &kp CARET      &kp TILDE      &kp HASH        &kp DQT         &trans     &kp N1        &kp N2        &kp N3      &trans       &trans
+                                         &trans         &trans          &trans          &trans     &trans  &trans
+                        >;
+                };
+
+                function_layer {
+                        label = "FUNCTION";
+// -----------------------------------------------------------------------------------------
+// | |     |     |     |     |     |            |Menu | F5   | F6  | F7  | F8  | |
+// | | GUI | Alt |Shift|Ctrl |     |            |Inser| F1   | F2  | F3  | F4  | |
+// | |     |     |     |     |     |            |     | F9   | F10 | F11 | F12 | |
+                        bindings = <
+   &trans &trans    &trans     &trans      &trans     &trans        &kp K_CMENU  &kp F5   &kp F6   &kp F7   &kp F8   &trans
+   &trans &kp LGUI  &kp LALT   &kp LSHFT   &kp LCTRL  &kp CAPS      &kp INSERT   &kp F1   &kp F2   &kp F3   &kp F4   &trans
+   &trans &trans    &trans     &trans      &trans     &trans        &trans       &kp F9   &kp F10  &kp F11  &kp F12  &trans
+                               &trans      &trans     &trans        &trans       &trans   &trans
+                        >;
+                };
+
+                cursor_layer {
+                        label = "CURSOR";
+// -----------------------------------------------------------------------------------------
+// | |     |     |     |     |Vol+ |            |PgUp |Home  | Up  | End |     | |
+// | | GUI | Alt |Shift|Ctrl |Vol- |            |PgDw |Left  |Down |Right|     | |
+// | |     |     |     |     |     |            |     |      |     |     |     | |
+                        bindings = <
+   &trans &trans    &trans     &trans      &trans     &kp C_VOL_UP    &kp PG_UP   &kp HOME   &kp UP    &kp END    &trans   &trans
+   &trans &kp LGUI  &kp LALT   &kp LSHFT   &kp LCTRL  &kp C_VOL_DN    &kp PG_DN   &kp LEFT   &kp DOWN  &kp RIGHT  &trans   &trans
+   &trans &trans    &trans     &trans      &trans     &trans          &trans      &trans     &trans    &trans     &trans  &trans
+                               &trans      &trans     &trans          &trans      &trans     &trans
+                        >;
+                };
+
+
+                brackets_layer {
+                        label = "BRACKETS";
+// -----------------------------------------------------------------------------------------
+// | | BT1 | BT2 | BT3 | BT4 | BT5 |            |     |     |     |     |     | |
+// | |     |  {  |  [  |  (  |     |            |  )  |  ]  |  }  |     |     | |
+// | |BlUsb|user |mail |sign |     |            |     |     |     |     |BTCLR| |
+                        bindings = <
+   &trans &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4      &trans  &trans   &trans    &trans      &trans      &trans
+   &trans &trans        &kp LBRC      &kp LBKT      &kp LPAR      &trans            &trans  &kp RPAR   &kp RBKT  &kp RBRC  &trans      &trans
+   &trans &out OUT_TOG  &m_user       &m_mail       &m_sign       &trans            &trans  &trans     &trans    &trans    &bt BT_CLR  &trans
+                                      &trans        &trans        &trans            &trans  &trans     &trans
+                        >;
+                };
+
+                lower_layer {
+                        label = "Accents";
+                        bindings = <
+   &trans &la_acute &lo_acute &le_acute &lu_acute &li_acute      &uI_acute &uU_acute &uE_acute &uO_acute &uA_acute &trans
+   &trans &la_grave &lo_grave &le_grave &lu_grave &li_grave      &uI_grave &uU_grave &uE_grave &uO_grave &uA_grave &trans
+   &trans &trans    &trans    &trans    &trans    &trans         &trans    &trans    &trans    &trans    &trans   &trans
+                              &trans    &trans    &trans         &trans    &trans    &trans
+                        >;
+                };
+        };
+};
